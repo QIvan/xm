@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'application'
+    id 'io.franzbecker.gradle-lombok' version '1.11'
+}
+
+
+group 'com.xm.interview'
+version '1.0.0-SNAPSHOT'
+
+
+sourceCompatibility = 1.8
+mainClassName = 'com.xm.interview.App'
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'com.beust', name: 'jcommander', version: '1.72'
+    
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+lombok {
+    version = "1.16.20"
+}
+
+
+
+task unzip(type: Copy)  {
+    def zipFile = file("${buildDir}/distributions/${rootProject.name}-${version}.zip")
+    def outputDir = file("${buildDir}/distributions")
+
+    from zipTree(zipFile)
+    into outputDir
+}
+
+build.finalizedBy(unzip)
+
