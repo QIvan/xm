@@ -29,7 +29,7 @@ public class App {
         }
     }
 
-    @Parameter(names = {"-c", "--chessboard-size"}, description = "Size o")
+    @Parameter(names = {"-c", "--chessboard-size"}, description = "Size of chessboard")
     private Integer chessboardSize = Chessboard.DEFAULT_CHESSBOARD_SIZE;
 
     @Parameter(names = {"-s", "--start" }, required = true, description = "Start square")
@@ -79,6 +79,7 @@ public class App {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.out.println();
             usage();
         }
     }
