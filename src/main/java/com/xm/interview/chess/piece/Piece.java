@@ -10,6 +10,6 @@ import java.util.stream.Stream;
  */
 public interface Piece {
 
-    Stream<Square> findAllMoves(Chessboard chessboard, Square currentSquare);
+    Stream<Square> findAllNeighbors(Chessboard chessboard, Square currentSquare);
 
 }

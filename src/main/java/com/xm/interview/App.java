@@ -4,6 +4,9 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.xm.interview.chess.chessboard.Chessboard;
 import com.xm.interview.chess.chessboard.Square;
+import com.xm.interview.chess.path.DynamicProgramming;
+import com.xm.interview.chess.path.Game;
+import com.xm.interview.chess.path.Statistic;
 import com.xm.interview.chess.piece.King;
 import com.xm.interview.chess.piece.Knight;
 import com.xm.interview.chess.piece.Piece;
@@ -53,28 +56,31 @@ public class App {
                     .build()
                     .parse(input);
 
-            Solution solution = new Solution(
-                    new Chessboard(args.chessboardSize),
+            Chessboard chessboard = new Chessboard(args.chessboardSize);
+            Game game = new DynamicProgramming(
+                    chessboard,
                     args.start,
                     args.finish,
                     args.piece.getPiece()
             );
             
-            List<Square> path = solution.findPath();
+            List<Square> path = game.findPath();
             System.out.println(
                     path.stream()
                             .map(Square::toString)
                             .collect(Collectors.joining(" -> ")));
 
             if (args.printStatistic) {
-                Solution.Statistic statistic = solution.getStatistic();
+                Statistic statistic = game.getStatistic();
                 System.out.println();
                 System.out.println("Iterations " + statistic.getIterations());
                 System.out.println();
                 System.out.println("Result chessboard.");
                 System.out.println("  [] - start ");
                 System.out.println("  {} - finish");
-                System.out.println(statistic.printableSolutionTable());
+                Square start = chessboard.findSquare(args.start).orElseThrow(RuntimeException::new);
+                Square finish = chessboard.findSquare(args.finish).orElseThrow(RuntimeException::new);
+                System.out.println(statistic.printableSolutionTable(chessboard, start, finish));
 
             }
         } catch (Exception e) {

@@ -13,7 +13,7 @@ public class King implements Piece {
 
 
     @Override
-    public Stream<Square> findAllMoves(Chessboard chessboard, Square currentSquare) {
+    public Stream<Square> findAllNeighbors(Chessboard chessboard, Square currentSquare) {
         return Stream.of(
                 chessboard.shiftSquare(currentSquare, 0, 1),
                 chessboard.shiftSquare(currentSquare, 1, 0),

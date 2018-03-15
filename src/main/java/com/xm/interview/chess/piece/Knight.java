@@ -13,7 +13,7 @@ public class Knight implements Piece {
 
 
     @Override
-    public Stream<Square> findAllMoves(Chessboard chessboard, Square currentSquare) {
+    public Stream<Square> findAllNeighbors(Chessboard chessboard, Square currentSquare) {
         return Stream.of(
 //              x 1 x 8 x
 //              2 x x x 7
