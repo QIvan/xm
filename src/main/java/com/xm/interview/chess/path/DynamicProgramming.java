@@ -68,13 +68,13 @@ public class DynamicProgramming implements Game {
         return restoreSolution(start);
     }
 
-    private void fillSolutionTable(int maxMoves, Square current, int deep) {
+    private void fillSolutionTable(int maxMoves, Square current, int depth) {
         iterations++;
-        if (deep >= maxMoves) {
+        if (depth >= maxMoves) {
             return;
         }
-        setMoves(current, deep);
-        int neighborDeepViaCurrent = deep + 1;
+        setMoves(current, depth);
+        int neighborDeepViaCurrent = depth + 1;
         piece.findAllNeighbors(chessboard, current).forEach(neighbor -> {
             int neighborMovies = getMoves(neighbor);
             if (neighborMovies == 0 || neighborMovies > neighborDeepViaCurrent) {
